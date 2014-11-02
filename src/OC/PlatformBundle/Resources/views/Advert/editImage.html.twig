@@ -1,0 +1,30 @@
+{# src/OC/PlatformBundle/Resources/views/Advert/editImage.html.twig #}
+
+{% extends "OCPlatformBundle::layout.html.twig" %}
+
+{% block title %}
+    Modifier une image - {{ parent() }}
+{% endblock %}
+
+{% block ocplatform_body %}
+
+    <h2>Modifier l'image </h2>
+
+    <p>
+        Vous éditez une annonce déjà existante, merci de ne pas changer
+        l'esprit générale de l'annonce déjà publiée.
+    </p>
+    <p>
+        <a href="{{ path('oc_platform_view', {'id': advert.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            Retour à l'annonce
+        </a>
+
+        <a href="{{ path('oc_platform_editImage', {'advertId': advert.id}) }}" class="btn btn-default">
+            <i class="glyphicon glyphicon-chevron-left"></i>
+            modifier l'image
+        </a>
+
+    </p>
+
+{% endblock %}
