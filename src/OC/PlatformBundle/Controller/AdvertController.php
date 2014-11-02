@@ -16,6 +16,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class AdvertController extends Controller
 {
     public function indexAction($page)
+
     {
         if ($page < 1) {
             throw $this->createNotFoundException("La page ".$page." n'existe pas.");
