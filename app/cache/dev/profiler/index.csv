@@ -112,3 +112,11 @@ a9f684,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform,1414948511,
 55a89b,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform/add,1414948543,
 1a98b9,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform/add,1414948560,27f34d
 27f34d,127.0.0.1,POST,http://projetservice/web/app_dev.php/platform/add,1414948560,
+b0169a,127.0.0.1,GET,http://projetservice/web/app_Dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DOCPlatformBundle%253AAdvert%253Amenu,1414950285,29341f
+29341f,127.0.0.1,GET,http://projetservice/web/app_Dev.php/platform,1414950285,
+5aa478,127.0.0.1,GET,http://projetservice/web/app_Dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DOCPlatformBundle%253AAdvert%253Amenu,1414953698,4a7437
+4a7437,127.0.0.1,GET,http://projetservice/web/app_Dev.php/platform/add,1414953698,
+3c64d4,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform,1414953835,ebf6f2
+ebf6f2,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform,1414953835,
+c7bda5,127.0.0.1,GET,http://projetservice/web/app_dev.php/_fragment?_path=_format%3Dhtml%26_locale%3Den%26_controller%3DOCPlatformBundle%253AAdvert%253Amenu,1414953856,d49608
+d49608,127.0.0.1,GET,http://projetservice/web/app_dev.php/platform,1414953856,

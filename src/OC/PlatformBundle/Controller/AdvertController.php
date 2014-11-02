@@ -35,9 +35,13 @@ class AdvertController extends Controller
         // On calcule le nombre total de pages grâce au count($listAdverts) qui retourne le nombre total d'annonces
         $nbPages = ceil(count($listAdverts)/$nbPerPage);
 
+        if ($nbPages == 0) {
+            return $this->render('::layout.html.twig');
+        }
+
         // Si la page n'existe pas, on retourne une 404
         if ($page > $nbPages) {
-            return $this->render('::layout.html.twig');
+            throw $this->createNotFoundException("La page ".$page." n'existe pas.");
         }
 
         // On donne toutes les informations nécessaires à la vue
