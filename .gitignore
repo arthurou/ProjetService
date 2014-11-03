@@ -4,3 +4,4 @@
 app/cache/
 vendor/
 web/uploads/
+app/logs
