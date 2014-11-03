@@ -1,0 +1,42 @@
+Index: vendor/symfony/symfony/src/Symfony/Component/Intl/Resources/bin/autoload.php
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- vendor/symfony/symfony/src/Symfony/Component/Intl/Resources/bin/autoload.php	(revision )
++++ vendor/symfony/symfony/src/Symfony/Component/Intl/Resources/bin/autoload.php	(revision )
+@@ -0,0 +1,18 @@
++<?php
++
++/*
++ * This file is part of the Symfony package.
++ *
++ * (c) Fabien Potencier <fabien@symfony.com>
++ *
++ * For the full copyright and license information, please view the LICENSE
++ * file that was distributed with this source code.
++ */
++
++$autoload = __DIR__.'/../../vendor/autoload.php';
++
++if (!file_exists($autoload)) {
++    bailout('You should run "composer install --dev" in the component before running this script.');
++}
++
++require_once $autoload;
+Index: vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.bg.xlf
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.bg.xlf	(date 1414949385000)
++++ vendor/symfony/symfony/src/Symfony/Component/Validator/Resources/translations/validators.bg.xlf	(revision )
+@@ -1,0 +1,0 @@
+Index: vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf	(date 1414949385000)
++++ vendor/symfony/symfony/src/Symfony/Component/Form/Resources/translations/validators.bg.xlf	(revision )
+@@ -1,0 +1,0 @@
