@@ -8,11 +8,10 @@ use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
 
-/**
- * @ORM\Entity(repositoryClass="OC\PlatformBundle\Entity\AdvertRepository")
- * @ORM\HasLifecycleCallbacks()
- * @ORM\Column(name="title", type="string", length=255, unique=true)
- */
+    /**
+     * @ORM\Entity(repositoryClass="OC\PlatformBundle\Entity\AdvertRepository")
+     * @ORM\HasLifecycleCallbacks()
+     */
 class Advert
 {
     /** test */
@@ -48,16 +47,10 @@ class Advert
     private $content;
 
     /**
-     * @ORM\Column(name="published", type="boolean")
-     */
-    private $published = true;
-
-    /**
      * @ORM\OneToOne(targetEntity="OC\PlatformBundle\Entity\Image", cascade={"persist", "remove"})
      * @Assert\Valid()
      */
     private $image;
-
     /**
      * @ORM\ManyToMany(targetEntity="OC\PlatformBundle\Entity\Category", cascade={"persist"})
      */
@@ -67,6 +60,11 @@ class Advert
      * @ORM\OneToMany(targetEntity="OC\PlatformBundle\Entity\Application", mappedBy="advert")
      */
     private $applications; // Notez le « s », une annonce est liée à plusieurs candidatures
+
+    /**
+     * @ORM\Column(name="published", type="boolean")
+     */
+    private $published = true;
 
     /**
      * @ORM\Column(name="updated_at", type="datetime", nullable=true)
