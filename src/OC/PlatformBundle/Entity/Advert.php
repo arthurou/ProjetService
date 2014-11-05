@@ -14,7 +14,6 @@ use Symfony\Component\Validator\Constraints as Assert;
      */
 class Advert
 {
-    /** test */
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
