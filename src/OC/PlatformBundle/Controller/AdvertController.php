@@ -12,6 +12,8 @@ use \OC\PlatformBundle\Entity\AdvertSkill;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class AdvertController extends Controller
 {
@@ -75,8 +77,19 @@ class AdvertController extends Controller
             'listAdvertSkills' => $listAdvertSkills,
         ));
     }
+
+    /**
+     * @Security("has_role('ROLE_AUTEUR')")
+     */
     public function addAction(Request $request)
     {
+
+        // On vérifie que l'utilisateur dispose bien du rôle ROLE_AUTEUR
+        if (!$this->get('security.context')->isGranted('ROLE_AUTEUR')) {
+            // Sinon on déclenche une exception « Accès interdit »
+            throw new AccessDeniedException('Accès limité aux auteurs.');
+        }
+
         $advert = new Advert();
         $form = $this->createForm(new AdvertType(), $advert);
 
