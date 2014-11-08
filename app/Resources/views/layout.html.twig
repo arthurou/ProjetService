@@ -34,7 +34,9 @@
             <h3>Les annonces</h3>
             <ul class="nav nav-pills nav-stacked">
                 <li><a href="{{ path('oc_platform_home') }}">Accueil</a></li>
-                <li><a href="{{ path('oc_platform_add') }}">Ajouter une annonce</a></li>
+                {% if is_granted('ROLE_AUTEUR') %}
+                    <li><a href="{{ path('oc_platform_add') }}">Ajouter une annonce</a></li>
+                {% endif %}
             </ul>
             {% block toto %}
             {% endblock toto %}
@@ -50,6 +52,11 @@
     <hr>
 
     <footer>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+            <a href="{{ path('fos_user_security_login') }}">Connexion</a>
+        {% endif %}
         <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
     </footer>
 </div>
