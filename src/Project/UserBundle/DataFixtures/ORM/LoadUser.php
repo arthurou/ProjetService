@@ -1,11 +1,10 @@
 <?php
-// src/OC/UserBundle/DataFixtures/ORM/LoadUser.php
 
-namespace OC\UserBundle\DataFixtures\ORM;
+namespace Project\UserBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
-use OC\UserBundle\Entity\User;
+use Project\UserBundle\Entity\User;
 
 class LoadUser implements FixtureInterface
 {
