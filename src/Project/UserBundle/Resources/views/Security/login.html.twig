@@ -1,35 +1,65 @@
-{% trans_default_domain 'FOSUserBundle' %}
+<!DOCTYPE html>
+<html>
 
-{% block fos_user_content %}
-    {% if error %}
-        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+    <head>
 
-    <form action="{{ path("fos_user_security_check") }}" method="post">
-        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+        <meta charset="UTF-8">
 
-        <div>
-            <label for="username">{{ 'security.login.username'|trans }}</label>
-            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required" />
+        <title>Projet Service</title>
+
+        {% block stylesheets %}
+            <link rel="stylesheet" href="{{ asset('bundles/User/css/style.css') }}" type="text/css" media="all" />
+        {% endblock %}
+
+        <script src="bundles/User/js/prefixfree.min.js"></script>
+
+    </head>
+
+    <body>
+
+        <div class="body"></div>
+        <div class="grad"></div>
+        <div class="header">
+            <div>Projet<span>Service</span></div>
         </div>
 
-        <div>
-            <label for="password">{{ 'security.login.password'|trans }}</label>
-            <input type="password" id="password" name="_password" required="required" />
+        <br>
+
+        <div class="login">
+            {% trans_default_domain 'FOSUserBundle' %}
+
+            {% block fos_user_content %}
+                {% if error %}
+                    <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+
+                <form action="{{ path("fos_user_security_check") }}" method="post">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+                    <input type="text" placeholder="{{ 'security.login.username'|trans }}" name="_username"><br>
+                    <input type="password" placeholder="{{ 'security.login.password'|trans }}" name="_password"><br>
+
+                    <div>
+                        <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                        <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                    </div>
+
+
+                    <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+
+                </form>
+
+                <div>
+                    <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
+                </div>
+
+            {% endblock fos_user_content %}
+
         </div>
 
-        <div>
-            <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-            <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-        </div>
+        <script src='http://codepen.io/assets/libs/fullpage/jquery.js'></script>
 
+    </body>
 
-        <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+</html>
 
-    </form>
-
-    <div>
-    <a href="{{ path('fos_user_registration_register') }}">S'inscrire</a>
-    </div>
-
-{% endblock fos_user_content %}
