@@ -3,10 +3,13 @@
 security:
     encoders:
         #Symfony\Component\Security\Core\User\User: plaintext
-        OC\UserBundle\Entity\User: sha512
+        Project\UserBundle\Entity\User:
+            algorithm:           sha512
+            encode_as_base64:    true
+            iterations:          5000
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_AUTEUR, ROLE_MODERATEUR]
+        ROLE_ADMIN:       [ROLE_USER]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
 
     providers:
@@ -15,21 +18,30 @@ security:
 
     firewalls:
         main_login:
-            pattern: ^/login$
-            anonymous: true
+            pattern:    ^/login$
+            anonymous:  true
+        main_register:
+            pattern:    ^/register/$
+            anonymous:  true
+        main_home:
+            pattern:    ^/home$
+            anonymous:  true
+            context:    my_context
         main:
-            pattern: ^/
-            anonymous: false
-            provider: main
+            pattern:    ^/
+            anonymous:  false
+            provider:   main
+            context:    my_context
             form_login:
                 login_path: fos_user_security_login
                 check_path: fos_user_security_check
-                default_target_path: /platform
+                default_target_path: /home
             logout:
-                path: fos_user_security_logout
-                target: /platform
+                path:   fos_user_security_logout
+                target: /home
             remember_me:
-                key: %secret% # %secret% est un paramètre de parameters.yml
+                key:      %secret%
+                lifetime: 2232000
 
     access_control:
-        #- { path: ^/admin, roles: ROLE_ADMIN }
+       - { path: ^/admin, roles: ROLE_SUPER_ADMIN }

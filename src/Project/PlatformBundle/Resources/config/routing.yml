@@ -1,0 +1,7 @@
+project_platform_homepage:
+    path:     /home
+    defaults: { _controller: ProjectPlatformBundle:Platform:index }
+
+project_platform_adminpage:
+    path:     /admin
+    defaults: { _controller: ProjectPlatformBundle:Platform:admin }
