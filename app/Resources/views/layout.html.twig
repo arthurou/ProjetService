@@ -1,52 +1,86 @@
-{# app/Resources/views/layout.html.twig #}
-
 <!DOCTYPE html>
 <html>
+    {% trans_default_domain 'FOSUserBundle' %}
+
     <head>
-        <meta charset="utf-8">
+        <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <title>{% block title %}OC Projet Service{% endblock %}</title>
 
-        {% block stylesheets %}
-            {# On charge le CSS de bootstrap depuis le site directement #}
-            <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+        {% stylesheets filter='?yui_css'
+                        'Assets/css/application.css'
+                        'Assets/css/bootstrap.css' %}
+            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+        {% endstylesheets %}
+
+        <div class="layoutMenu">
+
+        </div>
+
+        {% block header %}
+
         {% endblock %}
+
     </head>
 
-    <body>
-    <div class="container">
-        <div id="header" class="jumbotron">
-            <h1>Projet Service</h1>
-            <p>
-                Projet genial par MACOTA
-            </p>
-        </div>
+    {% block body %}
 
-        <div class="row">
-            <div id="content" class="col-md-9">
-                {% block body %}
-                {% endblock %}
-            </div>
-        </div>
-
-        <hr>
-
-        <footer>
-            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-            {% else %}
-                <a href="{{ path('fos_user_security_login') }}">Connexion</a>
-            {% endif %}
-            <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-        </footer>
-    </div>
-
-    {% block javascripts %}
-        {# Ajoutez ces lignes JavaScript si vous comptez vous servir des fonctionnalités du bootstrap Twitter #}
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     {% endblock %}
 
-    </body>
+    <footer>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+            Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+        {% else %}
+
+            <button type="button" class="loginModalShow">login</button>
+
+            <div class="modalTemplate">
+                <!-- Modal -->
+                <div class="modal fade" id="modalDefault" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            {% trans_default_domain 'FOSUserBundle' %}
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+
+                                    <ul class="nav nav-tabs" id="TabModal">
+                                        <li><a href="#connexionTab" data-toggle="tab">{{ 'security.login.submit'|trans }}</a></li>
+                                        <li><a href="#registerTab" data-toggle="tab">{{ 'registration.submit'|trans }}</a></li>
+                                    </ul>
+                                </div>
+
+                                <div class="modal-body">
+                                    <div id="TabModalContent" class="tab-content">
+                                        <div class="tab-pane active fade in" id="connexionTab">
+                                            {% render "/login" %}
+                                        </div>
+
+                                        <div class="tab-pane fade" id="registerTab">
+                                            {% render "/register/" %}
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        {% endif %}
+
+        <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+
+        {% javascripts  filter='yui_js'
+                        'Assets/js/jquery-2.1.1.min.js'
+                        'Assets/js/bootstrap.js'
+                        'Assets/js/Authentification.js'
+        %}
+            <script type="text/javascript" src="{{ asset_url }}"></script>
+        {% endjavascripts %}
+    </footer>
+
 </html>

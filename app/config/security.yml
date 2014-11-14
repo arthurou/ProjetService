@@ -27,6 +27,14 @@ security:
             pattern:    ^/home$
             anonymous:  true
             context:    my_context
+        application_css:
+            pattern:    ^/css
+            anonymous:  true
+            context:    my_context
+        application_js:
+            pattern:    ^/js
+            anonymous:  true
+            context:    my_context
         main:
             pattern:    ^/
             anonymous:  false
