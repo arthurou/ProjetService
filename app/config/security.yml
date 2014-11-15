@@ -17,16 +17,6 @@ security:
             id: fos_user.user_provider.username
 
     firewalls:
-        main_login:
-            pattern:    ^/login$
-            anonymous:  true
-        main_register:
-            pattern:    ^/register/$
-            anonymous:  true
-        main_home:
-            pattern:    ^/home$
-            anonymous:  true
-            context:    my_context
         application_css:
             pattern:    ^/css
             anonymous:  true
@@ -35,9 +25,17 @@ security:
             pattern:    ^/js
             anonymous:  true
             context:    my_context
+        home:
+            pattern:    ^/home$
+            anonymous:  true
+            context:    my_context
+        login:
+            pattern:    ^/login$
+            anonymous:  true
+            context:    my_context
         main:
             pattern:    ^/
-            anonymous:  false
+            anonymous:  true
             provider:   main
             context:    my_context
             form_login:

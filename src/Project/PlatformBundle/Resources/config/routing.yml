@@ -5,3 +5,11 @@ project_platform_homepage:
 project_platform_adminpage:
     path:     /admin
     defaults: { _controller: ProjectPlatformBundle:Platform:admin }
+
+project_platform_contactpage:
+    path:     /contact
+    defaults: { _controller: ProjectPlatformBundle:Platform:contact }
+
+project_platform_sendpage:
+    path:     /envoie
+    defaults: { _controller: ProjectPlatformBundle:Platform:send }

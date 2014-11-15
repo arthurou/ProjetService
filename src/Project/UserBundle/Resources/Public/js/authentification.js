@@ -2,10 +2,7 @@
 
 
 $( document ).ready(function() {
-    $(document).on("click", ".loginModalShow", function(){/*
-        var content = $(".loginContent").html();
-        $(".modalTemplate #modalDefault .modal-content").html("");
-        $(".modalTemplate #modalDefault .modal-content").html(content);*/
+    $(document).on("click", ".login", function(){
         $(".modalTemplate #modalDefault ").addClass('in');
         $(".modalTemplate #modalDefault").modal("show");
     })

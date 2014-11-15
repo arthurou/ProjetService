@@ -1,0 +1,1 @@
+$(document).ready(function(){$(document).on("click",".loginModalShow",function(){$(".modalTemplate #modalDefault ").addClass("in");$(".modalTemplate #modalDefault").modal("show")})});

@@ -33,7 +33,7 @@ twig:
 assetic:
     debug:          "%kernel.debug%"
     use_controller: false
-    bundles:        [ FOSUserBundle ]
+    bundles:        [ FOSUserBundle,ProjectPlatformBundle,ProjectUserBundle]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -81,3 +81,6 @@ fos_user:
     db_driver:     orm                       # Le type de BDD à utiliser, nous utilisons l'ORM Doctrine depuis le début
     firewall_name: main                      # Le nom du firewall derrière lequel on utilisera ces utilisateurs
     user_class:    Project\UserBundle\Entity\User # La classe de l'entité User que nous utilisons
+    registration:
+        confirmation:
+            enabled:    false
