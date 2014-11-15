@@ -1,4 +1,10 @@
 {% trans_default_domain 'FOSUserBundle' %}
+
+ {% stylesheets filter='?yui_css'
+ 'Assets/css/application.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+
 <div class="loginForm" id="connexionTab">
 
     {% block fos_user_content %}
@@ -26,4 +32,3 @@
     {% endblock fos_user_content %}
 
 </div>
-

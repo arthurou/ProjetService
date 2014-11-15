@@ -1,86 +1,87 @@
 <!DOCTYPE html>
 <html>
-    {% trans_default_domain 'FOSUserBundle' %}
+{% trans_default_domain 'FOSUserBundle' %}
 
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>{% block title %}OC Projet Service{% endblock %}</title>
+    <title>{% block title %}OC Projet Service{% endblock %}</title>
 
-        {% stylesheets filter='?yui_css'
-                        'Assets/css/application.css'
-                        'Assets/css/bootstrap.css' %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
+    {% stylesheets filter='?yui_css'
+                    'Assets/css/application.css'
+                    'Assets/css/bootstrap.css' %}
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
 
-        <div class="layoutMenu">
+    <div class="layoutMenu">
 
-        </div>
+    </div>
 
-        {% block header %}
-
-        {% endblock %}
-
-    </head>
-
-    {% block body %}
+    {% block header %}
 
     {% endblock %}
 
-    <footer>
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-            Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
-        {% else %}
+</head>
 
-            <button type="button" class="loginModalShow">login</button>
 
-            <div class="modalTemplate">
-                <!-- Modal -->
-                <div class="modal fade" id="modalDefault" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            {% trans_default_domain 'FOSUserBundle' %}
-                                <div class="modal-header">
+{% block body %}
 
-                                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+ {% endblock %}
 
-                                    <ul class="nav nav-tabs" id="TabModal">
-                                        <li><a href="#connexionTab" data-toggle="tab">{{ 'security.login.submit'|trans }}</a></li>
-                                        <li><a href="#registerTab" data-toggle="tab">{{ 'registration.submit'|trans }}</a></li>
-                                    </ul>
-                                </div>
+ <footer>
+     {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+         Connecté en tant que {{ app.user.username }} - <a href="{{ path('fos_user_security_logout') }}">Déconnexion</a>
+     {% else %}
 
-                                <div class="modal-body">
-                                    <div id="TabModalContent" class="tab-content">
-                                        <div class="tab-pane active fade in" id="connexionTab">
-                                            {% render "/login" %}
-                                        </div>
+         <button type="button" class="loginModalShow">login</button>
 
-                                        <div class="tab-pane fade" id="registerTab">
-                                            {% render "/register/" %}
-                                        </div>
-                                    </div>
+         <div class="modalTemplate">
+             <!-- Modal -->
+             <div class="modal fade" id="modalDefault" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                 <div class="modal-dialog">
+                     <div class="modal-content">
+                         {% trans_default_domain 'FOSUserBundle' %}
+                             <div class="modal-header">
 
-                                </div>
-                        </div>
-                    </div>
+                                 <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                 <h4 class="modal-title" id="myModalLabel">register</h4>
 
-                </div>
-            </div>
+                                 <ul class="nav nav-tabs" id="TabModal">
+                                     <li><a href="#connexionTab" data-toggle="tab">{{ 'security.login.submit'|trans }}</a></li>
+                                     <li><a href="#registerTab" data-toggle="tab">{{ 'registration.submit'|trans }}</a></li>
+                                 </ul>
+                             </div>
 
-        {% endif %}
+                             <div class="modal-body">
+                                 <div id="TabModalContent" class="tab-content">
+                                     <div class="tab-pane active fade in" id="connexionTab">
+                                         {% render "/login" %}
+                                     </div>
 
-        <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+                                     <div class="tab-pane fade" id="registerTab">
+                                         {% render "/register/" %}
+                                     </div>
+                                 </div>
 
-        {% javascripts  filter='yui_js'
-                        'Assets/js/jquery-2.1.1.min.js'
-                        'Assets/js/bootstrap.js'
-                        'Assets/js/Authentification.js'
-        %}
-            <script type="text/javascript" src="{{ asset_url }}"></script>
-        {% endjavascripts %}
-    </footer>
+                             </div>
+                     </div>
+                 </div>
+
+             </div>
+         </div>
+
+     {% endif %}
+
+     <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
+
+     {% javascripts  filter='yui_js'
+                     'Assets/js/jquery-2.1.1.min.js'
+                     'Assets/js/bootstrap.js'
+                     'Assets/js/Authentification.js'
+     %}
+         <script type="text/javascript" src="{{ asset_url }}"></script>
+     {% endjavascripts %}
+ </footer>
 
 </html>
