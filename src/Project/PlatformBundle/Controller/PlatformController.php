@@ -17,7 +17,12 @@ class PlatformController extends Controller
     public function indexAction()
 
     {
-        return $this->render('ProjectPlatformBundle:Platform:Home.html.twig');
+
+        if (!$this->get('security.context')->isGranted('IS_AUTHENTICATED_ANONYMOUSLY')) {
+            return $this->render('ProjectPlatformBundle:Platform:Home.html.twig');
+        }else{
+            return $this->render('ProjectPlatformBundle:Platform:Home.html.twig');
+        }
     }
 
     public function sendAction()
@@ -61,6 +66,19 @@ class PlatformController extends Controller
 
     }
 
+    public function viewContactAction($uid)
+    {
+        $em = $this->getDoctrine()->getManager();
+        $contact = $em->getRepository('ProjectPlatformBundle:Contact')->findOneByUid($uid);
+
+        if ($contact === null) {
+            throw $this->createNotFoundException("ce contact n'existe pas");
+        }
+
+        return $this->render('ProjectPlatformBundle:Platform:viewContact.html.twig', array(
+            'contact'=> $contact,
+        ));
+    }
 
 
     Public function adminAction()

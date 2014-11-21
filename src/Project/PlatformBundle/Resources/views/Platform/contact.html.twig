@@ -1,9 +1,62 @@
 {% extends "ProjectPlatformBundle::layout.html.twig" %}
 
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+                            'bundles/projectplatform/css/contact.css' %}
 
-
+        <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
 
 {% block body %}
 
-    <h1>page de contact</h1>
+   <div class="contactForm">
+        {{ include("ProjectPlatformBundle:Platform:contactForm.html.twig") }}
+    </div>
+
+    <div class="contactList">
+        <ul>
+            <h3>Vos Contacts:</h3>
+
+            {% for contact in listContact %}
+                <li>
+                    <a>
+                        <p class="contactSelector targetContact", attr-uid={{ contact.uid}}>{{ contact.name}} {{ contact.surname}}</p>
+                        <div class="modalContact">
+                            <!-- Modal -->
+                            <div class="modal fade modalContact" id="modalContactView-{{contact.uid}}" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                            <h4 class="modal-title">Modal title</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>{{ contact.name}} {{ contact.surname}}</p>
+                                            <p>{{ contact.adress}}</p>
+                                            <p>{{ contact.postcode}}</p>
+                                            <p>{{ contact.city}}</p>
+                                            <p>{{ contact.country}}</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-primary">Save changes</button>
+                                        </div>
+                                    </div><!-- /.modal-content -->
+                                </div><!-- /.modal-dialog -->
+                            </div><!-- /.modal -->
+                        </div>
+                    </a>
+                </li>
+            {% else %}
+                <li>Pas encore de contacts!</li>
+            {% endfor %}
+
+        </ul>
+    </div>
+
+
+
+
 {% endblock %}

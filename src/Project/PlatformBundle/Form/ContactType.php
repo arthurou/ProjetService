@@ -17,8 +17,8 @@ class ContactType extends AbstractType
             ->add('surname',     'text')
             ->add('adress',    'textarea')
             ->add('city',   'text')
-            ->add('postcode',   'text')
-            ->add('country',   'text')
+            ->add('postcode',   'number')
+            ->add('country',   'country')
             ->add('save',      'submit')
         ;
     }

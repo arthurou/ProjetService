@@ -1,2 +1,15 @@
+{% extends "ProjectPlatformBundle::layout.html.twig" %}
 
-je suis une page admin
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+    'bundles/projectplatform/css/admin.css' %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{%block body %}
+    je suis une page admin
+{% endblock %}

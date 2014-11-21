@@ -13,3 +13,7 @@ project_platform_contactpage:
 project_platform_sendpage:
     path:     /envoie
     defaults: { _controller: ProjectPlatformBundle:Platform:send }
+
+project_platform_viewContact:
+    path:     /contact/{uid}
+    defaults: { _controller: ProjectPlatformBundle:Platform:viewContact }

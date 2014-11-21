@@ -1,8 +1,17 @@
 {% extends "ProjectPlatformBundle::layout.html.twig" %}
 
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+    'bundles/projectplatform/css/home.css' %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
 
 {% block body %}
-    <h1>home page salut je suis un bout de code</h1>
+    <h1>home page</h1>
     <button class="btn btn-large btn-primary" id="send_buton" onclick="self.location.href='{{path("project_platform_sendpage") }}'">Envoyer une fleur</button>
 {% endblock %}
 

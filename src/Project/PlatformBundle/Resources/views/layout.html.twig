@@ -1,5 +1,10 @@
 {% extends "::layout.html.twig" %}
 
+{% block stylesheet %}
+    {{ parent() }}
+    {% block mainbundle_stylesheet %}
+    {% endblock %}
+{% endblock %}
 
 {% block header %}
     {% include "::menu.html.twig" %}

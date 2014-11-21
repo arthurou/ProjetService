@@ -1,29 +1,30 @@
-{% trans_default_domain 'FOSUserBundle' %}
+{% block body %}
 
-<div class="loginForm" id="connexionTab">
+    <div class="loginForm">
 
-    {% block fos_user_content %}
+        {% block fos_user_content %}
+            {% trans_default_domain 'FOSUserBundle' %}
+            {% if error %}
+                <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+            {% endif %}
 
-        {% if error %}
-            <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-        {% endif %}
+            <form action="{{ path("fos_user_security_check") }}" method="post">
 
-        <form action="{{ path("fos_user_security_check") }}" method="post">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
 
-            <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+                <input type="text" placeholder="{{ 'security.login.username'|trans }}" name="_username"><br>
+                <input type="password" placeholder="{{ 'security.login.password'|trans }}" name="_password"><br>
 
-            <input type="text" placeholder="{{ 'security.login.username'|trans }}" name="_username"><br>
-            <input type="password" placeholder="{{ 'security.login.password'|trans }}" name="_password"><br>
+                <div>
+                    <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                    <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
+                </div>
 
-            <div>
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
-                <label for="remember_me">{{ 'security.login.remember_me'|trans }}</label>
-            </div>
+                <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
 
-            <input type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans }}" />
+            </form>
 
-        </form>
+        {% endblock fos_user_content %}
 
-    {% endblock fos_user_content %}
-
-</div>
+    </div>
+{% endblock %}

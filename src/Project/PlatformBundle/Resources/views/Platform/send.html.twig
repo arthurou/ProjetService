@@ -1,6 +1,15 @@
 {% extends "ProjectPlatformBundle::layout.html.twig" %}
 
-{% block body %}
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+    'bundles/projectplatform/css/send.css' %}
 
-    <h1>page d'envoie</h1>
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+
+{%block body %}
+    je suis une page d'envoie
 {% endblock %}

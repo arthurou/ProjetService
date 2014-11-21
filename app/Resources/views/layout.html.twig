@@ -8,13 +8,18 @@
 
         <title>{% block title %}OC Projet Service{% endblock %}</title>
 
-        {% stylesheets output="css/compiled/main.css" filter='?yui_css'
-        'bundles/projectplatform/css/platform.css'
-                                'css/bootstrap.css'
+        {% block stylesheet %}
 
-                         %}
-            <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
-        {% endstylesheets %}
+            {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+            'bundles/projectplatform/css/platform.css'
+                                    'css/bootstrap.css'
+
+                             %}
+                <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+            {% endstylesheets %}
+
+        {% endblock %}
+
     </head>
 
     <header>
@@ -35,12 +40,11 @@
 
          {% endblock %}
 
-         <p>The sky's the limit © {{ 'now'|date('Y') }} and beyond.</p>
-
          {% javascripts  output="js/compiled/core.js" filter='yui_js'
                          'js/jquery-2.1.1.min.js'
                          'js/bootstrap.js'
                          'bundles/projectuser/js/Authentification.js'
+                         'bundles/projectPlatform/js/contact.js'
          %}
              <script type="text/javascript" src="{{ asset_url }}"></script>
          {% endjavascripts %}

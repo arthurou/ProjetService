@@ -8,14 +8,14 @@ use Doctrine\ORM\Mapping as ORM;
  * contact
  *
  * @ORM\Table()
- * @ORM\Entity(repositoryClass="Project\PlatformBundle\Entity\contactRepository")
+ * @ORM\Entity(repositoryClass="Project\PlatformBundle\Entity\ContactRepository")
  */
-class contact
+class Contact
 {
 
 
     /**
-     * @ORM\ManyToOne(targetEntity="Project\UserBundle\entity\User")
+     * @ORM\ManyToOne(targetEntity="Project\UserBundle\entity\User" ,cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
@@ -27,6 +27,13 @@ class contact
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+    /**
+     * @var string
+     *
+     *@ORM\Column(name="uid", type="string", length=255)
+     */
+    private $uid;
 
     /**
      * @var string
@@ -69,6 +76,12 @@ class contact
      * @ORM\Column(name="country", type="string", length=255)
      */
     private $country;
+
+
+    public function __construct()
+    {
+        $this->setUid();
+    }
 
 
     /**
@@ -233,5 +246,21 @@ class contact
     public function setUser($user)
     {
         $this->user = $user;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUid()
+    {
+        return $this->uid;
+    }
+
+    /**
+     * @param mixed uid
+     */
+    public function setUid()
+    {
+        $this->uid= sha1(uniqid('', true));
     }
 }

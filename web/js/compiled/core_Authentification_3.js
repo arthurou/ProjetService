@@ -1,1 +1,1 @@
-$(document).ready(function(){$(document).on("click",".loginModalShow",function(){$(".modalTemplate #modalDefault ").addClass("in");$(".modalTemplate #modalDefault").modal("show")})});
+$(document).ready(function(){$(document).on("click",".login",function(){$(".modalTemplate #modalDefault ").addClass("in");$(".modalTemplate #modalDefault").modal("show")})});
