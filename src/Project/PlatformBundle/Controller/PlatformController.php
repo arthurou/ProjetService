@@ -2,11 +2,15 @@
 
 namespace Project\PlatformBundle\Controller;
 
+use Project\PlatformBundle\Form\ContactType;
+
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
+use \Project\PlatformBundle\Entity\Contact;
 
 class PlatformController extends Controller
 {
@@ -23,15 +27,38 @@ class PlatformController extends Controller
     }
 
 
-    public function contactAction()
+    public function contactAction(Request $request)
 
     {
-        if ($this->get('security.context')->isGranted('IS_AUTHENTICATED_REMEMBERED')) {
-            return $this->render('ProjectPlatformBundle:Platform:contact.html.twig');
+        $contact = new Contact();
+        $form = $this->get('form.factory')->create(new ContactType(), $contact);
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ProjectPlatformBundle:Contact')
+        ;
+
+        $listContact = $repository->findByUser($this->container->get('security.context')->getToken()->getUser());
+
+        if ($form->handleRequest($request)->isValid()) {
+            $user=$this->get('security.context')->getToken()->getUser();
+            $contact->setUser($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+
+            return $this->render('ProjectPlatformBundle:Platform:Contact.html.twig', array(
+                'listContact' => $listContact,
+                'form' => $form->createView()
+            ));
         }
-        else{
-            return $this->redirect($this->generateUrl('project_platform_homepage'));
-        }
+
+        return $this->render('ProjectPlatformBundle:Platform:Contact.html.twig', array(
+            'listContact' => $listContact,
+            'form' => $form->createView()
+        ));
+
     }
 
 
