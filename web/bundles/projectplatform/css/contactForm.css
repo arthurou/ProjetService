@@ -1,0 +1,12 @@
+#formGroup{
+    width:60%;
+    right:0px;
+    border: 1px solid #FFF;
+    padding:3%;
+    position:absolute;
+}
+
+.formField{left:20%;}
+.inputLabel{width:30%;}
+.input{width:70%;}
+.inputSubmit{width:70%;  height: 40px; background:#cccccc; border:0; color: #000; font-size: 18px;}

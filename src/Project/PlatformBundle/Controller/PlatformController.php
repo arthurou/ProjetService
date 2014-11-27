@@ -25,10 +25,38 @@ class PlatformController extends Controller
         }
     }
 
-    public function sendAction()
+    public function sendAction(Request $request)
 
     {
-        return $this->render('ProjectPlatformBundle:Platform:send.html.twig');
+
+        $contact = new Contact();
+        $form = $this->get('form.factory')->create(new ContactType(), $contact);
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ProjectPlatformBundle:Contact')
+        ;
+
+        $listContact = $repository->findByUser($this->container->get('security.context')->getToken()->getUser());
+
+        if ($form->handleRequest($request)->isValid()) {
+            $user=$this->get('security.context')->getToken()->getUser();
+            $contact->setUser($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($contact);
+            $em->flush();
+
+            return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
+                'listContact' => $listContact,
+                'form' => $form->createView()
+            ));
+        }
+
+        return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
+            'listContact' => $listContact,
+            'form' => $form->createView()
+        ));
     }
 
 

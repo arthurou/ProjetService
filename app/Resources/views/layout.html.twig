@@ -22,33 +22,33 @@
 
     </head>
 
-    <header>
-        {% block header %}
-
-        {% endblock %}
-    </header>
-
     <body>
+        <header>
+            {% block header %}
+
+            {% endblock %}
+        </header>
+
         {% block body %}
 
         {% endblock %}
+
+
+         <footer>
+
+             {% block modal %}
+
+             {% endblock %}
+
+             {% javascripts  output="js/compiled/core.js" filter='yui_js'
+                             'js/jquery-2.1.1.min.js'
+                             'js/bootstrap.js'
+                             'bundles/projectuser/js/Authentification.js'
+                             'bundles/projectPlatform/js/contact.js' %}
+
+                 <script type="text/javascript" src="{{ asset_url }}"></script>
+             {% endjavascripts %}
+         </footer>
     </body>
-
-     <footer>
-
-         {% block modal %}
-
-         {% endblock %}
-
-         {% javascripts  output="js/compiled/core.js" filter='yui_js'
-                         'js/jquery-2.1.1.min.js'
-                         'js/bootstrap.js'
-                         'bundles/projectuser/js/Authentification.js'
-                         'bundles/projectPlatform/js/contact.js'
-         %}
-             <script type="text/javascript" src="{{ asset_url }}"></script>
-         {% endjavascripts %}
-     </footer>
-
 
 </html>
