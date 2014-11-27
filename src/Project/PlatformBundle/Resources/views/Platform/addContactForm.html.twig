@@ -1,0 +1,7 @@
+{% extends "ProjectPlatformBundle:Platform:contactForm.html.twig" %}
+
+{% block Submit %}
+    <div class="formField" >
+        {{ form_widget(form.save,{'attr': {'class': 'inputSubmit'}}) }}
+    </div>
+{% endblock %}
