@@ -14,9 +14,9 @@ project_platform_contactpage:
     path:     /contact
     defaults: { _controller: ProjectPlatformBundle:Platform:contact }
 
-project_platform_sendpage:
-    path:     /envoie
-    defaults: { _controller: ProjectPlatformBundle:Platform:send }
+project_platform_commandpage:
+    path:     /commande
+    defaults: { _controller: ProjectPlatformBundle:Platform:command }
 
 project_platform_viewContact:
     path:     /contact/{uid}

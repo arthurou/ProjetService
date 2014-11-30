@@ -13,6 +13,65 @@
 
 
     <section class="container">
+        <div class="col-xs-18 registerContact">
+            <table class="table table-hover table-striped">
+                <thead>
+                <tr>
+                    <th>Prendre la commande</th>
+                    <th>Numeros de commande</th>
+                    <th>Prix</th>
+                    <th>Adresse de livraison</th>
+                    <th>Date de livraison</th>
+                    <th>Status de la commande</th>
+                </tr>
+                </thead>
+                <tbody>
+                    {% for command in commandList %}
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>{{ command.commandNumber }}</td>
+                            <td>{{ command.price }} euros</td>
+                            <td>{{ command.contact.name }} {{ command.contact.surname }}
+                                {{ command.contact.adress }}
+                                {{ command.contact.postcode }} {{ command.contact.city }}
+                                {{ command.contact.country }}
+                            </td>
+                            <td>{{ command.contact.name }}</td>
+                            <td>{{ command.status }}</td>
+                        </tr>
+
+                    {% endfor %}
+                </tbody>
+            </table>
+            </div>
     </section>
+    {{ form_start(commandForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+    {{ form_errors(commandForm) }}
+
+    <h3>Passez votre command:</h3>
+
+    <div id="formGroup form-horizontal">
+
+        <h3>Envoie:</h3>
+
+        <div class="formField">
+
+            <div class="formField">
+                {{ form_errors(commandForm.status) }}
+                {{ form_widget(commandForm.status, {'attr': {'class': 'btn dropdown-toggle selectpicker btn-lg btn-block'} }) }}
+            </div>
+
+            <div class="formField" >
+                {{ form_widget(commandForm.send, {'label':'Commander', 'attr': {'class': 'btn btn-default btn-lg btn-block'}}) }}
+            </div>
+
+        </div>
+
+    </div>
+
+    {{ form_end(commandForm) }}
+
+
 
 {% endblock %}

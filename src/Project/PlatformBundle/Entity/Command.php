@@ -28,7 +28,14 @@ class Command
     private $user;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Project\PlatformBundle\entity\Contact" ,cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Project\UserBundle\entity\User" ,cascade={"remove"})
+     * @ORM\JoinColumn(nullable=true)
+     *  @ORM\Column(name="product_user_id")
+     */
+    private $userProduct;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Project\PlatformBundle\Entity\Contact" ,cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $contact;
@@ -78,11 +85,19 @@ class Command
      */
     private $status;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="price", type="integer")
+     */
+    private $price;
+
 
     public function __construct()
     {
         $this->setStatus("New");
         $this->setCommandNumber();
+        $this->setPrice(5);
         $this->setCommandDate(new \DateTime);
     }
 
@@ -237,5 +252,21 @@ class Command
     public function setShippingdate($shippingDate)
     {
         $this->shippingDate = $shippingDate;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * @param string $price
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
     }
 }

@@ -28,7 +28,7 @@ class PlatformController extends Controller
         }
     }
 
-    public function sendAction(Request $request)
+    public function commandAction(Request $request)
 
     {
 
@@ -42,7 +42,7 @@ class PlatformController extends Controller
 
         $command = new Command();
         $listContact = $repository->findByUser($securityContext->getToken()->getUser());
-        $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext), $command);
+        $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext, "project_platform_commandpage"), $command);
 
 
         if ($commandForm->handleRequest($request)->isValid()) {
@@ -52,18 +52,17 @@ class PlatformController extends Controller
             $em->persist($command);
             $em->flush();
 
-            return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
+            return $this->render('ProjectPlatformBundle:Platform:Command.html.twig', array(
                 'listContact' => $listContact,
                 'commandForm' => $commandForm->createView()
             ));
         }
 
-        return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
+        return $this->render('ProjectPlatformBundle:Platform:Command.html.twig', array(
             'listContact' => $listContact,
             'commandForm' => $commandForm->createView()
         ));
     }
-
 
     public function contactAction(Request $request)
 
@@ -113,7 +112,6 @@ class PlatformController extends Controller
         ));
     }
 
-
     Public function adminAction()
     {
         if (!$this->get('security.context')->isGranted('ROLE_SUPER_ADMIN')) {
@@ -123,8 +121,38 @@ class PlatformController extends Controller
         return $this->render('ProjectPlatformBundle:Platform:Admin.html.twig');
     }
 
-    Public function productionAction()
+    Public function productionAction(Request $request)
     {
-        return $this->render('ProjectPlatformBundle:Platform:production.html.twig');
+
+        $repository = $this
+            ->getDoctrine()
+            ->getManager()
+            ->getRepository('ProjectPlatformBundle:Command')
+        ;
+
+        $securityContext = $this->container->get('security.context');
+        $commandList = $repository->getCommandForProductor($securityContext->getToken()->getUser());
+
+        $command = new Command();
+        $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext, "project_platform_productionpage"), $command);
+
+
+        if ($commandForm->handleRequest($request)->isValid()) {
+            $user=$this->get('security.context')->getToken()->getUser();
+            $command->setUser($user);
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($command);
+            $em->flush();
+
+            return $this->render('ProjectPlatformBundle:Platform:production.html.twig', array(
+                'commandList' => $commandList,
+                'commandForm' => $commandForm->createView()
+            ));
+        }
+
+        return $this->render('ProjectPlatformBundle:Platform:production.html.twig', array(
+            'commandList' => $commandList,
+            'commandForm' => $commandForm->createView()
+        ));
     }
 }

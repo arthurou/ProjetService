@@ -12,4 +12,25 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommandRepository extends EntityRepository
 {
+
+    Public function getCommandForProductor($user)
+    {
+
+        $qb = $this->createQueryBuilder('c');
+
+        //création de l'expression OR
+        $orModule = $qb->expr()->orx();
+        $orModule->add($qb->expr()->eq('c.userProduct', ':user'));
+        $orModule->add($qb->expr()->isNull('c.userProduct'));
+
+        //Ajout de l'expression à la requête
+        $qb->Where($orModule)
+            ->setParameter('user', $user);
+
+        return $qb
+            ->getQuery()
+            ->getResult()
+            ;
+    }
+
 }
