@@ -13,6 +13,8 @@
             {% stylesheets output="css/compiled/main.css" filter='?yui_css'
             'bundles/projectplatform/css/platform.css'
                                     'css/bootstrap.css'
+                                    'css/global.css'
+                                    'css/bootstrap-datetimepicker.min.css'
 
                              %}
                 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
@@ -24,8 +26,52 @@
 
     <body>
         <header>
-            {% block header %}
+            {#==================================================#}
+            <div class="navbar-wrapper">
+                <div class="container">
 
+                    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+                        <div class="container">
+                            <div class="navbar-header">
+                                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                                    <span class="sr-only">Toggle navigation</span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                    <span class="icon-bar"></span>
+                                </button>
+                                <a class="navbar-brand" href={{path("project_platform_sendpage") }}>Flower Power</a>
+                            </div>
+                            <div id="navbar" class="navbar-collapse collapse">
+                                <ul class="nav navbar-nav">
+                                    {% if is_granted("ROLE_PROD") %}
+                                        <li class  ="Active"><a href={{  path("project_platform_homepage") }}>Home</a></li>
+                                        <li><a href={{  path("project_platform_productionpage") }}>Gestion</a></li>
+                                        <li><a href="contact">Favoris</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href={{  path("fos_user_security_logout") }}>Deconnexion</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">A propos</a></li>
+                                    {% elseif is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                        <li class  ="Active"><a href={{  path("project_platform_homepage") }}>Home</a></li>
+                                        <li><a href="contact">Favoris</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href={{  path("fos_user_security_logout") }}>Deconnexion</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">A propos</a></li>
+                                    {% else %}
+                                        <li class  ="Active"><a href={{  path("project_platform_homepage") }}>Home</a></li>
+                                        <li class=login><a>Connection</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#">A propos</a></li>
+                                    {% endif %}
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+            {#==================================================#}
+            {% block header %}
             {% endblock %}
         </header>
 
@@ -43,8 +89,12 @@
              {% javascripts  output="js/compiled/core.js" filter='yui_js'
                              'js/jquery-2.1.1.min.js'
                              'js/bootstrap.js'
+                             'js/docs.min.js'
+                             'js/bootstrap-datetimepicker.min.js'
                              'bundles/projectuser/js/Authentification.js'
-                             'bundles/projectPlatform/js/contact.js' %}
+                             'bundles/projectPlatform/js/contact.js'
+
+                            %}
 
                  <script type="text/javascript" src="{{ asset_url }}"></script>
              {% endjavascripts %}

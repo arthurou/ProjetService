@@ -2,7 +2,10 @@
 
 namespace Project\PlatformBundle\Controller;
 
+use Project\PlatformBundle\Entity\Command;
+use \Project\PlatformBundle\Entity\Contact;
 use Project\PlatformBundle\Form\ContactType;
+use Project\PlatformBundle\Form\CommandType;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -10,7 +13,7 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
-use \Project\PlatformBundle\Entity\Contact;
+
 
 class PlatformController extends Controller
 {
@@ -29,33 +32,35 @@ class PlatformController extends Controller
 
     {
 
-        $contact = new Contact();
-        $form = $this->get('form.factory')->create(new ContactType(), $contact);
-
         $repository = $this
             ->getDoctrine()
             ->getManager()
             ->getRepository('ProjectPlatformBundle:Contact')
         ;
 
-        $listContact = $repository->findByUser($this->container->get('security.context')->getToken()->getUser());
+        $securityContext = $this->container->get('security.context');
 
-        if ($form->handleRequest($request)->isValid()) {
+        $command = new Command();
+        $listContact = $repository->findByUser($securityContext->getToken()->getUser());
+        $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext), $command);
+
+
+        if ($commandForm->handleRequest($request)->isValid()) {
             $user=$this->get('security.context')->getToken()->getUser();
-            $contact->setUser($user);
+            $command->setUser($user);
             $em = $this->getDoctrine()->getManager();
-            $em->persist($contact);
+            $em->persist($command);
             $em->flush();
 
             return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
                 'listContact' => $listContact,
-                'form' => $form->createView()
+                'commandForm' => $commandForm->createView()
             ));
         }
 
         return $this->render('ProjectPlatformBundle:Platform:Send.html.twig', array(
             'listContact' => $listContact,
-            'form' => $form->createView()
+            'commandForm' => $commandForm->createView()
         ));
     }
 
@@ -64,7 +69,7 @@ class PlatformController extends Controller
 
     {
         $contact = new Contact();
-        $form = $this->get('form.factory')->create(new ContactType(), $contact);
+        $contactForm = $this->get('form.factory')->create(new ContactType(), $contact);
 
         $repository = $this
             ->getDoctrine()
@@ -74,7 +79,7 @@ class PlatformController extends Controller
 
         $listContact = $repository->findByUser($this->container->get('security.context')->getToken()->getUser());
 
-        if ($form->handleRequest($request)->isValid()) {
+        if ($contactForm->handleRequest($request)->isValid()) {
             $user=$this->get('security.context')->getToken()->getUser();
             $contact->setUser($user);
             $em = $this->getDoctrine()->getManager();
@@ -83,13 +88,13 @@ class PlatformController extends Controller
 
             return $this->render('ProjectPlatformBundle:Platform:Contact.html.twig', array(
                 'listContact' => $listContact,
-                'form' => $form->createView()
+                'contactForm' => $contactForm->createView()
             ));
         }
 
         return $this->render('ProjectPlatformBundle:Platform:Contact.html.twig', array(
             'listContact' => $listContact,
-            'form' => $form->createView()
+            'contactForm' => $contactForm->createView()
         ));
 
     }
@@ -116,5 +121,10 @@ class PlatformController extends Controller
         }
 
         return $this->render('ProjectPlatformBundle:Platform:Admin.html.twig');
+    }
+
+    Public function productionAction()
+    {
+        return $this->render('ProjectPlatformBundle:Platform:production.html.twig');
     }
 }

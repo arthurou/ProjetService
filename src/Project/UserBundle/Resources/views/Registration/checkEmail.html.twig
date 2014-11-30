@@ -1,7 +1,13 @@
-{% extends "FOSUserBundle::layout.html.twig" %}
+{% extends "ProjectUserBundle::layout.html.twig" %}
 
-{% trans_default_domain 'FOSUserBundle' %}
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css' %}
 
-{% block fos_user_content %}
-    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
-{% endblock fos_user_content %}
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+    <p>Felicitation, il ne vous reste plus qu'a confirmer votre inscription. Pour ceci un email vous à été envoyé.</p>
+{% endblock %}

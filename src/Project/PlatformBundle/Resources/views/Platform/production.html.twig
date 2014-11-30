@@ -1,0 +1,18 @@
+{% extends "ProjectPlatformBundle::layout.html.twig" %}
+
+{% block mainbundle_stylesheet %}
+    {{ parent() }}
+    {% stylesheets output="css/compiled/main.css" filter='?yui_css'
+    'bundles/projectplatform/css/production.css' %}
+
+    <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+    {% endstylesheets %}
+{% endblock %}
+
+{% block body %}
+
+
+    <section class="container">
+    </section>
+
+{% endblock %}

@@ -23,9 +23,38 @@ class CommandType extends AbstractType
 
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
-            ->add('commandNumber',    'text')
-            ->add('status',    'text');
+            ->add('send',    'submit')
+            ->add('shippingDate', 'date');
+
+        $user = $this->securityContext->getToken()->getUser();
+        if (!$user) {
+            throw new \LogicException(
+                'Le FriendMessageFormType ne peut pas être utilisé sans utilisateur connecté!'
+            );
+        }
+
+       $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function(FormEvent $event) use ($user) {
+                $form = $event->getForm();
+
+                $formOptions = array(
+                    'class' => 'Project\PlatformBundle\Entity\contact',
+                    'property' => 'name',
+                    'query_builder' => function(ContactRepository $er) use($user){
+                        return $er->createQueryBuilder('dc')
+                            ->where('dc.user = :user')
+                            ->setparameter('user',  $user)
+                            ->orderBy('dc.user', 'ASC');
+                    },
+                );
+
+                $form->add('contact', 'entity', $formOptions);
+            }
+        );
+
     }
 
     /**

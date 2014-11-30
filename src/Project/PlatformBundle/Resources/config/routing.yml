@@ -6,6 +6,10 @@ project_platform_adminpage:
     path:     /admin
     defaults: { _controller: ProjectPlatformBundle:Platform:admin }
 
+project_platform_productionpage:
+    path:     /production
+    defaults: { _controller: ProjectPlatformBundle:Platform:production }
+
 project_platform_contactpage:
     path:     /contact
     defaults: { _controller: ProjectPlatformBundle:Platform:contact }

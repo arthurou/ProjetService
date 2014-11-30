@@ -4,54 +4,50 @@
 <link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
 {% endstylesheets %}
 
-    {{ form_start(form, {'attr': {'class': 'form-horizontal'}}) }}
 
-{{ form_errors(form) }}
+{{ form_start(contactForm, {'attr': {'class': 'form-horizontal'}}) }}
 
-<div id="formGroup">
+    {{ form_errors(contactForm) }}
 
+<h3>Ajouter un contact:</h3>
 
-    <div class="formField">
-        {{ form_label(form.surname, "Nom", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.surname) }}
-        {{ form_widget(form.surname, {'attr': {'class': 'input'} }) }}
+    <div id="formGroup form-horizontal">
+
+        <div class="formField">
+            {{ form_errors(contactForm.surname) }}
+            <p>{{ form_widget(contactForm.surname, {'attr': {'class': 'input-xlarge input', 'placeholder': "Nom:"} }) }}</p>
+        </div>
+
+        <div class="formField">
+            {{ form_errors(contactForm.name) }}
+            <p>{{ form_widget(contactForm.name, { 'attr': {'class': 'input-xlarge input', 'placeholder': "Prenom:"} }) }}</p>
+        </div>
+
+        <div class="formField">
+            {{ form_errors(contactForm.adress) }}
+            <p>{{ form_widget(contactForm.adress, { 'attr': {'class': 'input-xlarge input', 'placeholder': "Adress:"} }) }}</p>
+        </div>
+
+        <div class="formField">
+            {{ form_errors(contactForm.city) }}
+            <p>{{ form_widget(contactForm.city, { 'attr': {'class': 'input-xlarge input', 'placeholder': "Ville:"} }) }}</p>
+        </div>
+
+        <div class="formField">
+            {{ form_errors(contactForm.postcode) }}
+            <p>{{ form_widget(contactForm.postcode, {'attr': {'class': 'input-xlarge input', 'placeholder': "Code Postal:"} }) }}</p>
+        </div>
+
+        <div class="formField">
+            {{ form_errors(contactForm.country) }}
+            <p>{{ form_widget(contactForm.country, {'id': 'inputCountry', 'attr': {'class': 'input-xlarge input'} }) }}</p>
+        </div>
+
+        <div class="formField" >
+            {{ form_widget(contactForm.save, {'label':'Ajouter', 'attr': {'class': 'btn btn-primary inputSubmit'}}) }}</p>
+        </div>
+
     </div>
 
-    <div class="formField">
-        {{ form_label(form.name, "Prénom", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.name) }}
-        {{ form_widget(form.name, { 'attr': {'class': 'input'} }) }}
-    </div>
-
-    <div class="formField">
-        {{ form_label(form.adress, "Adresse", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.adress) }}
-        {{ form_widget(form.adress, { 'attr': {'class': 'input'} }) }}
-    </div>
-
-    <div class="formField">
-        {{ form_label(form.city, "Ville", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.city) }}
-        {{ form_widget(form.city, { 'attr': {'class': 'input'} }) }}
-    </div>
-
-    <div class="formField">
-        {{ form_label(form.postcode, "Code Postal", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.postcode) }}
-        {{ form_widget(form.postcode, {'attr': {'class': 'input'} }) }}
-    </div>
-
-    <div class="formField">
-        {{ form_label(form.country, "Pays", {'label_attr': {'class': 'inputLabel'}}) }}
-        {{ form_errors(form.country) }}
-        {{ form_widget(form.country, {'id': 'inputCountry', 'attr': {'class': 'input'} }) }}
-    </div>
-
-    <div class="formField" >
-        {{ form_widget(form.save, {'label':'Ajouter', 'attr': {'class': 'inputSubmit'}}) }}
-    </div>
-
-</div>
-
-{{ form_end(form) }}
+{{ form_end(contactForm) }}
 

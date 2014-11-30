@@ -1,0 +1,41 @@
+{% stylesheets output="css/compiled/main.css" filter='?yui_css'
+'bundles/projectplatform/css/commandForm.css' %}
+
+<link rel="stylesheet" href="{{ asset_url }}" type="text/css" />
+{% endstylesheets %}
+
+
+{{ form_start(commandForm, {'attr': {'class': 'form-horizontal'}}) }}
+
+{{ form_errors(commandForm) }}
+
+<h3>Passez votre command:</h3>
+
+<div id="formGroup form-horizontal">
+
+    <h3>Envoie:</h3>
+
+    <div class="formField">
+
+        <div class="formField">
+            {{ form_errors(commandForm.shippingDate) }}
+            {{ form_widget(commandForm.shippingDate, { 'attr': {'class': 'datepicker'}}) }}
+        </div>
+
+        <div class="formField">
+            {{ form_errors(commandForm.contact) }}
+            {{ form_widget(commandForm.contact, {'attr': {'class': 'btn dropdown-toggle selectpicker btn-lg btn-block'} }) }}
+        </div>
+
+        <div class="formField" >
+            {{ form_widget(commandForm.send, {'label':'Commander', 'attr': {'class': 'btn btn-default btn-lg btn-block'}}) }}
+
+
+        </div>
+
+    </div>
+
+</div>
+
+{{ form_end(commandForm) }}
+

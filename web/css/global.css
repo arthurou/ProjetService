@@ -3,8 +3,18 @@
 /* Padding below the footer and lighter body text */
 
 body {
-  padding-bottom: 40px;
+  padding-bottom: 80px;
   color: #5a5a5a;
+}
+header {
+    padding-bottom: 80px;
+    color: #5a5a5a;
+}
+footer  {
+    position: relative;
+    clear:both;
+    margin-top: -150px;
+    height: 150px
 }
 
 
@@ -65,14 +75,14 @@ body {
 -------------------------------------------------- */
 
 /* Center align the text within the three columns below the carousel */
-.marketing .col-lg-4 {
-  margin-bottom: 20px;
+.marketing .col-sm-4 {
+  margin-bottom: 40px;
   text-align: center;
 }
 .marketing h2 {
   font-weight: normal;
 }
-.marketing .col-lg-4 p {
+.marketing .col-sm-4 p {
   margin-right: 10px;
   margin-left: 10px;
 }
