@@ -16,7 +16,7 @@ project_platform_contactpage:
 
 project_platform_commandpage:
     path:     /commande
-    defaults: { _controller: ProjectPlatformBundle:Platform:command }
+    defaults: { _controller: ProjectPlatformBundle:Platform:command}
 
 project_platform_viewContact:
     path:     /contact/{uid}

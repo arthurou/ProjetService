@@ -3,6 +3,7 @@
 namespace Project\PlatformBundle\Controller;
 
 use Project\PlatformBundle\Entity\Command;
+use Project\PlatformBundle\Entity\CommandStatus;
 use \Project\PlatformBundle\Entity\Contact;
 use Project\PlatformBundle\Form\ContactType;
 use Project\PlatformBundle\Form\CommandType;
@@ -31,23 +32,22 @@ class PlatformController extends Controller
     public function commandAction(Request $request)
 
     {
-
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('ProjectPlatformBundle:Contact')
-        ;
+        $repository = $this->getDoctrine()->getManager();
+        $contactRepository = $repository->getRepository('ProjectPlatformBundle:Contact');
+        $statusRepository= $repository->getRepository('ProjectPlatformBundle:CommandStatus');
 
         $securityContext = $this->container->get('security.context');
 
         $command = new Command();
-        $listContact = $repository->findByUser($securityContext->getToken()->getUser());
+        $listContact = $contactRepository->findByUser($securityContext->getToken()->getUser());
         $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext, "project_platform_commandpage"), $command);
 
 
         if ($commandForm->handleRequest($request)->isValid()) {
+            $status = $statusRepository->findOneByName("New");
             $user=$this->get('security.context')->getToken()->getUser();
             $command->setUser($user);
+            $command->setstatus($status);
             $em = $this->getDoctrine()->getManager();
             $em->persist($command);
             $em->flush();
@@ -124,16 +124,15 @@ class PlatformController extends Controller
     Public function productionAction(Request $request)
     {
 
-        $repository = $this
-            ->getDoctrine()
-            ->getManager()
-            ->getRepository('ProjectPlatformBundle:Command')
-        ;
-
+        $repository = $this->getDoctrine()->getManager();
+        $commandRepository= $repository->getRepository('ProjectPlatformBundle:Command');
+        $statusRepository= $repository->getRepository('ProjectPlatformBundle:CommandStatus');
         $securityContext = $this->container->get('security.context');
-        $commandList = $repository->getCommandForProductor($securityContext->getToken()->getUser());
 
         $command = new Command();
+
+        $commandList = $commandRepository->getCommandForProductor($securityContext->getToken()->getUser());
+        $statusCommandList=$statusRepository->findByName(array("New","Assign","Production", "Send"));
         $commandForm = $this->get('form.factory')->create(new CommandType( $securityContext, "project_platform_productionpage"), $command);
 
 
@@ -146,13 +145,15 @@ class PlatformController extends Controller
 
             return $this->render('ProjectPlatformBundle:Platform:production.html.twig', array(
                 'commandList' => $commandList,
-                'commandForm' => $commandForm->createView()
+                'commandForm' => $commandForm->createView(),
+                'statusCommandList' => $statusCommandList
             ));
         }
 
         return $this->render('ProjectPlatformBundle:Platform:production.html.twig', array(
             'commandList' => $commandList,
-            'commandForm' => $commandForm->createView()
+            'commandForm' => $commandForm->createView(),
+            'statusCommandList' => $statusCommandList
         ));
     }
 }

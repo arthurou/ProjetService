@@ -1,0 +1,39 @@
+.pageContact{
+    position: absolute;
+    top:80px ;
+    right: 0;
+    left: 0;
+    z-index: 20;
+    width:780px;
+    margin:auto;}
+
+
+
+.registerContact{
+    border: 1px solid #EEE;
+}
+
+.contactList {
+    list-style-type: none;
+    padding-left:0;
+    margin:0px;    resize:none;
+
+;}
+
+.contactField {
+    color:#222222;
+    cursor: pointer;
+    font-size:16px;
+    margin:15px;
+    left:10px;
+    height: 30px;
+
+}
+
+.contactField :hover {color:royalblue;
+    -webkit-transition:width 1s, height 1s, background-color 2s, -webkit-transform 1s;
+    transition:width 1s, height 1s, background-color 2s, transform 1s;
+}
+.contactForm {
+    border: 1px solid #EEE;
+}

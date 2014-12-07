@@ -36,8 +36,21 @@
                                 {{ command.contact.postcode }} {{ command.contact.city }}
                                 {{ command.contact.country }}
                             </td>
-                            <td>{{ command.contact.name }}</td>
-                            <td>{{ command.status }}</td>
+                            <td>{{ command.shippingDate |date("d/m/Y")}}</td>
+                            <td>
+                                <select class="selectpicker" id="commandStatus-List-{{ command.commandNumber }}"
+                                        onchange='val("{{ command.commandNumber }}");'>
+
+                                    {% for status in statusCommandList %}
+                                        {% if  status.id  == command.status.id %}
+                                            <option selected="selected" id="command-status-{{ status.id }}" >{{ status.Name }}</option>
+                                         {% elseif status.id >= command.status.id %}
+                                            <option id="command-status-{{ status.id }}" >{{ status.Name }}</option>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </select>
+                            </td>
                         </tr>
 
                     {% endfor %}
@@ -45,33 +58,16 @@
             </table>
             </div>
     </section>
-    {{ form_start(commandForm, {'attr': {'class': 'form-horizontal'}}) }}
 
-    {{ form_errors(commandForm) }}
+    <script>
 
-    <h3>Passez votre command:</h3>
+        function val(idList)
+        {
+            var select = document.getElementById("commandStatus-List-" + idList);
+            console.log(select);
+            var indexS = select[select.selectedIndex].value;
 
-    <div id="formGroup form-horizontal">
-
-        <h3>Envoie:</h3>
-
-        <div class="formField">
-
-            <div class="formField">
-                {{ form_errors(commandForm.status) }}
-                {{ form_widget(commandForm.status, {'attr': {'class': 'btn dropdown-toggle selectpicker btn-lg btn-block'} }) }}
-            </div>
-
-            <div class="formField" >
-                {{ form_widget(commandForm.send, {'label':'Commander', 'attr': {'class': 'btn btn-default btn-lg btn-block'}}) }}
-            </div>
-
-        </div>
-
-    </div>
-
-    {{ form_end(commandForm) }}
-
-
-
+            alert(indexS);
+        }
+    </script>
 {% endblock %}

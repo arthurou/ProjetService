@@ -1,0 +1,1 @@
+$(document).ready(function(){$(document).on("click",".targetContact",function(b){b.preventDefault();var a=$(b.currentTarget).attr("attr-uid");$(b.currentTarget).removeClass("targetContact");$("#modalContactView-"+a).modal("show")});$(".modalContact").on("hidden.bs.modal",function(){$(".contactSelector").addClass("targetContact")})});

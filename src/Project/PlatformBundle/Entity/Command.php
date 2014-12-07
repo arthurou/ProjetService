@@ -29,8 +29,7 @@ class Command
 
     /**
      * @ORM\ManyToOne(targetEntity="Project\UserBundle\entity\User" ,cascade={"remove"})
-     * @ORM\JoinColumn(nullable=true)
-     *  @ORM\Column(name="product_user_id")
+     * @ORM\JoinColumn(nullable=true , name="product_user_id")
      */
     private $userProduct;
 
@@ -79,9 +78,8 @@ class Command
     private $realShipping;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=255)
+     * @ORM\ManyToOne(targetEntity="Project\PlatformBundle\Entity\CommandStatus")
+     * @ORM\JoinColumn(nullable=false)
      */
     private $status;
 
@@ -95,7 +93,6 @@ class Command
 
     public function __construct()
     {
-        $this->setStatus("New");
         $this->setCommandNumber();
         $this->setPrice(5);
         $this->setCommandDate(new \DateTime);
@@ -151,7 +148,7 @@ class Command
     /**
      * Get status
      *
-     * @return string 
+     * @return string
      */
     public function getStatus()
     {
